@@ -2,7 +2,8 @@
 ![Homomorphic Encryption](images/introduction.jpg)
 
 Repository for the implementation of Homomorphic Polynomial Public Key Cryptography for posterior training and statistical analysis.
-A review on the innovative asymmetric cryptographic method designed by Randy Kuang et al. (2024) for the post-quantum era is presented, in other to understand its relation with algebra and the properties of finite
+
+A review on the innovative asymmetric cryptographic method designed by Randy Kuang et al. (2024) for the post-quantum era is presented (see .pdf), in other to understand its relation with algebra and the properties of finite
 fields. The hope is to bring understanding on cryptographic methods’ design. Its efficiency and security constraints are analysed as well.
 
 # Introduction
