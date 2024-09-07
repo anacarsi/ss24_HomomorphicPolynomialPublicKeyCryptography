@@ -1,5 +1,7 @@
-# ss24_HomomorphicPolynomialPublicKeyCryptography
-![Homomorphic Encryption](images/introduction.jpg)
+# Homomorphic Polynomial Public Key Cryptography - A review on its foundation
+<div align="center">
+    <img src="he-process-simple.png" alt="Homomorphic Encryption" width="400" height="300"/>
+</div>
 
 Repository for the implementation of Homomorphic Polynomial Public Key Cryptography for posterior training and statistical analysis.
 
@@ -40,4 +42,8 @@ pair generation, encapsulation (encryption) to create a shared secret key, and d
 A private key recovery attack with complexity O(2p(S1 + S2)) and a forgery attack with complexity O(S1 ∗ S2) was analysed. However, the evaluation of HPPK for digital signature shows it is an efficient method in key generation, signing, and verification processes. 
 
 Plus, the adaptation of the Barrett-reduction algorithm helps reducing the overhead created through decapsulation and polynomial modular multiplication.
-![Homomorphic Encryption](images/barrett.jpg)
+
+HPPK’s performance with other cryptographic schemes, including AES-based systems like Kyber can be analysed from the benchmark (R. Kuang, 2024). One can note that HPPK outperforms Kyber, designed to be competitive with AES in terms of efficiency:
+<div align="center">
+    <img src="performance.png" alt="Performance Quantum-Algorithms" width="500" height="200"/>
+</div>
