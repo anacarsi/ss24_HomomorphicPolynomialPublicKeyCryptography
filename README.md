@@ -1,49 +1,90 @@
-# Homomorphic Polynomial Public Key Cryptography - A review on its foundation
+# Homomorphic Polynomial Public Key Cryptography (HPPK) - A Deep Dive into its Foundations
+
 <div align="center">
-    <img src="he-process-simple.png" alt="Homomorphic Encryption" width="400" height="300"/>
+    <img src="images/he_pipeline.png" alt="Homomorphic Encryption" />
 </div>
 
-Repository for the implementation of Homomorphic Polynomial Public Key Cryptography for posterior training and statistical analysis.
+Welcome to the repository for the implementation of **Homomorphic Polynomial Public Key Cryptography (HPPK)**. This project serves as a review of the asymmetric cryptographic method introduced by Randy Kuang et al. (2024). The goal is to understand its algebraic foundations, its relationship with finite fields, and its potential as a post-quantum cryptographic solution. Additionally, we analyze its efficiency and security constraints.
 
-A review on the innovative asymmetric cryptographic method designed by Randy Kuang et al. (2024) for the post-quantum era is presented (see .pdf), in other to understand its relation with algebra and the properties of finite
-fields. The hope is to bring understanding on cryptographic methods’ design. Its efficiency and security constraints are analysed as well.
+---
 
-# Introduction
-Since the publication of the Diffie-Hellman key exchange and the RSA cryptosystem, public key cryptography has been a major field on cybersecurity research. However, a new threat appeared with the raise of quantum
-computing, leading to the development of post-quantum cryptography (PQC). We can introduce Polynomial Public Key comparing it with other public-key methods: 
+## Introduction
 
-## Comparison of Cryptographic Methods
-1. Advanced Encryption Standard (AES):
-   - Uses the finite field GF(2^8)
-   - Operations are internal in the field and highly efficient
-   - Low memory requirements
+**Diffie-Hellman key exchange** and **RSA cryptosystem** public key cryptography methods are challenged by the rise of quantum computing. In this domain, **post-quantum cryptography (PQC)** and HPPK provide a more complex yet efficient mechanism for asymmetric encryption.
 
-2. Rivest-Shamir-Adleman (RSA):
-   - Uses modular exponentiation in the ring Z/nZ
-   - More complex than AES
-   - Higher memory requirements (bigger key size) than AES
+### Comparison of Cryptographic Methods
 
-3. Polynomial Public Key Cryptography (PPKC):
-   - Uses polynomials over a finite field to represent public key, private key, and encrypted message
-   - Polynomials lie on finite fields Fp, where p is prime
-   - Focuses on both secure key exchange and encryption/decryption
-   - Can be slower than RSA, depending on polynomial sizes
+1. **Advanced Encryption Standard (AES):**
+   - Operates in the finite field GF(2^8).
+   - Highly efficient with low memory requirements.
+   - Primarily used for symmetric encryption.
 
-# Methodology
-Homomorphic Polynomial Public Key (HPPK) is an extension of PPKC and a specific form of homomorphic encryption. Here, the multivariate polynomials lie as well on finite fields, and the encryption method has
-been proven to be partially homomorphic under addition and multiplication.
-Comparing it to RSA, both use separate public and private keys, where the public key is used for encryption and the private key for decryption. However in HHPK the public key is derived from polynomial
-multiplications over a finite field.
+2. **Rivest-Shamir-Adleman (RSA):**
+   - Relies on modular exponentiation in the ring Z/nZ.
+   - More complex than AES with higher memory requirements.
+   - Widely used for public-key encryption.
 
-HPPK was originally designed for Key Encapsulation Mechanism, aiming to securely generate and share a secret symmetric key between two parties using public key cryptography. KEM consists of three steps: key
-pair generation, encapsulation (encryption) to create a shared secret key, and decapsulation (decryption) for key recovery. 
+3. **Polynomial Public Key Cryptography (PPKC):**
+   - Represents keys and messages as polynomials over finite fields Fp (where p is prime).
+   - Balances secure key exchange and encryption/decryption.
+   - Efficiency depends on polynomial sizes, potentially slower than RSA.
 
-# Analysis
-A private key recovery attack with complexity O(2p(S1 + S2)) and a forgery attack with complexity O(S1 ∗ S2) was analysed. However, the evaluation of HPPK for digital signature shows it is an efficient method in key generation, signing, and verification processes. 
+---
 
-Plus, the adaptation of the Barrett-reduction algorithm helps reducing the overhead created through decapsulation and polynomial modular multiplication.
+## Methodology
 
-HPPK’s performance with other cryptographic schemes, including AES-based systems like Kyber can be analysed from the benchmark (R. Kuang, 2024). One can note that HPPK outperforms Kyber, designed to be competitive with AES in terms of efficiency:
-<div align="center">
-    <img src="performance.png" alt="Performance Quantum-Algorithms" width="500" height="200"/>
-</div>
+**Homomorphic Polynomial Public Key (HPPK)** extends PPKC by incorporating homomorphic properties. It supports both addition and multiplication operations, making it partially homomorphic. 
+
+Like RSA, HPPK uses separate public and private keys. However, its public key is derived from polynomial multiplications over finite fields, offering a unique approach to encryption. HPPK is particularly suited for **Key Encapsulation Mechanisms (KEM)**, which involve:
+
+1. **Key Pair Generation:** Creating public and private keys.
+2. **Encapsulation:** Encrypting to generate a shared secret key.
+3. **Decapsulation:** Decrypting to recover the shared key.
+
+---
+
+## Analysis
+
+HPPK has been evaluated for its security and efficiency:
+
+- **Security:** 
+  - A private key recovery attack has complexity O(2p(S1 + S2)).
+  - A forgery attack has complexity O(S1 ∗ S2).
+  - Despite these challenges, HPPK demonstrates strong security properties for digital signatures.
+
+- **Efficiency:**
+  - The **Barrett-reduction algorithm** reduces overhead in decapsulation and polynomial modular multiplication.
+  - HPPK outperforms other cryptographic schemes, including AES-based systems like Kyber, in key generation and encryption efficiency.
+
+### Performance Benchmark
+
+The table below compares HPPK's performance with NIST-standardized Kyber and round 4 candidates McEliece, BIKE, and HQC. Performance data for BIKE and HQC are cited from their NIST submission specifications, while data for McEliece and Kyber are computed using the same SUPERCOP tool as HPPK KEM schemes. 
+
+**Note: ** 
+Kyber is a **lattice-based cryptographic algorithm** that relies on the **Learning With Errors (LWE)** problem, a hard problem in lattice theory. It is designed for **Key Encapsulation Mechanisms (KEM)** and is known for its efficiency, small key sizes, and strong security guarantees. Kyber was selected by NIST as the primary standardized KEM for post-quantum cryptography.
+
+**BIKE (Bit Flipping Key Encapsulation)**
+BIKE is a **code-based cryptographic algorithm** that leverages the hardness of decoding random linear codes. It is optimized for performance using **AVX2 instructions**, which enhance its efficiency on modern processors. BIKE is a round 4 candidate in the NIST PQC standardization process and is particularly suited for environments requiring lightweight cryptographic solutions.
+
+**HQC (Hamming Quasi-Cyclic)**
+HQC is another **code-based cryptographic algorithm** that builds on the difficulty of decoding random linear codes. It is designed for KEM and offers a balance between security and performance. HQC is also a round 4 candidate in the NIST PQC process and is recognized for its robustness against quantum attacks.
+
+**McEliece**
+McEliece is a **code-based cryptographic algorithm** that has been a cornerstone of post-quantum cryptography since its introduction in 1978. It relies on the hardness of decoding random linear codes and is known for its exceptional security. However, it has large key sizes compared to other schemes. McEliece is a round 4 candidate in the NIST PQC process and remains a strong contender for post-quantum security.
+
+
+| System               | KeyGen       | Encapsulation | Decapsulation |
+|----------------------|--------------|---------------|---------------|
+| **Security Level I** |              |               |               |
+| McEliece             | 152,424,455  | 108,741       | 45,122,734    |
+| Kyber                | 72,403       | 95,466        | 117,406       |
+| BIKE (AVX2)          | 589,000      | 97,000        | 1,135,000     |
+| HQC                  | 187,000      | 419,000       | 833,000       |
+| HPPK-(32,1,1,2)      | 12,665       | 25,963        | 63,365        |
+| HPPK-(32,1,1,3)      | 20,098       | 65,776        | 63,729        |
+
+## References
+
+For further details please refer to the following paper:
+
+- Kuang, R., Perepechaenko, M., Lou, D., & Tank, B. (2024). *Benchmark Performance of Homomorphic Polynomial Public Key Cryptography for Key Encapsulation and Digital Signature Schemes*. Retrieved from [https://eprint.iacr.org/2024/019](https://eprint.iacr.org/2024/019)
