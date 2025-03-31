@@ -1,4 +1,4 @@
-# Homomorphic Polynomial Public Key Cryptography (HPPK) - A Deep Dive into its Foundations
+# Post Quantum Cryptography - HPPK
 
 <div align="center">
     <img src="images/he_pipeline.png" alt="Homomorphic Encryption" />
